@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -61,7 +62,22 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
+				},
+				// Custom cosmic theme colors
+				cosmic: {
+					black: '#000000',
+					pink: '#FF69B4',
+					white: '#FFFFFF',
+					red: '#FF4040',
+					'rose-gold': '#D4A59A'
 				}
+			},
+			fontFamily: {
+				'montserrat': ['Montserrat', 'sans-serif'],
+				'great-vibes': ['Great Vibes', 'cursive'],
+			},
+			backgroundImage: {
+				'ink-splash': "url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><defs><radialGradient id=\"ink\" cx=\"50%\" cy=\"50%\" r=\"50%\"><stop offset=\"0%\" style=\"stop-color:%23FF69B4;stop-opacity:0.3\"/><stop offset=\"70%\" style=\"stop-color:%23FF4040;stop-opacity:0.1\"/><stop offset=\"100%\" style=\"stop-color:%23000000;stop-opacity:0\"/></radialGradient></defs><circle cx=\"50\" cy=\"50\" r=\"40\" fill=\"url(%23ink)\"/></svg>')",
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
@@ -84,11 +100,21 @@ export default {
 					to: {
 						height: '0'
 					}
+				},
+				'ink-float': {
+					'0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+					'50%': { transform: 'translateY(-10px) rotate(5deg)' }
+				},
+				'cosmic-glow': {
+					'0%, 100%': { textShadow: '0 0 5px #FF69B4' },
+					'50%': { textShadow: '0 0 20px #FF69B4, 0 0 30px #FF4040' }
 				}
 			},
 			animation: {
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				'ink-float': 'ink-float 3s ease-in-out infinite',
+				'cosmic-glow': 'cosmic-glow 2s ease-in-out infinite alternate'
 			}
 		}
 	},
