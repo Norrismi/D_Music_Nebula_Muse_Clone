@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { Track } from "@/pages/Index";
 import { Circle, CircleX } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TrackModalProps {
   track: Track;
@@ -13,6 +14,7 @@ const TrackModal = ({ track, onClose }: TrackModalProps) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const audioRef = useRef<HTMLAudioElement>(null);
+  const { user } = useAuth();
 
   useEffect(() => {
     const audio = audioRef.current;
@@ -43,8 +45,8 @@ const TrackModal = ({ track, onClose }: TrackModalProps) => {
   };
 
   const handleBuyNow = async () => {
-    if (!supabase) {
-      alert('Payment system is not configured. Please set up Supabase integration.');
+    if (!user) {
+      alert('Please sign in to purchase tracks.');
       return;
     }
 

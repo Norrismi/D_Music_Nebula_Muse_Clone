@@ -1,6 +1,7 @@
 import { Track } from "@/pages/Index";
 import { Circle } from "lucide-react";
-import { supabase } from "@/lib/supabase";
+import { useAuth } from "@/hooks/useAuth";
+import { supabase } from "@/integrations/supabase/client";
 
 interface TrackCardProps {
   track: Track;
@@ -8,11 +9,13 @@ interface TrackCardProps {
 }
 
 const TrackCard = ({ track, onPlay }: TrackCardProps) => {
+  const { user } = useAuth();
+
   const handleBuyNow = async (e: React.MouseEvent) => {
     e.stopPropagation();
     
-    if (!supabase) {
-      alert('Payment system is not configured. Please set up Supabase integration.');
+    if (!user) {
+      alert('Please sign in to purchase tracks.');
       return;
     }
 

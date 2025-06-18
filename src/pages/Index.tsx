@@ -1,8 +1,11 @@
 
 import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 import HeroSection from "@/components/HeroSection";
 import TrackGrid from "@/components/TrackGrid";
 import TrackModal from "@/components/TrackModal";
+import AuthModal from "@/components/AuthModal";
+import UserMenu from "@/components/UserMenu";
 
 export interface Track {
   id: number;
@@ -128,17 +131,47 @@ const mockTracks: Track[] = [
 
 const Index = () => {
   const [selectedTrack, setSelectedTrack] = useState<Track | null>(null);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-cosmic-black flex items-center justify-center">
+        <div className="text-cosmic-white font-montserrat">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-cosmic-black text-cosmic-white font-montserrat">
+      {/* Header with auth */}
+      <div className="absolute top-4 right-4 z-10">
+        {user ? (
+          <UserMenu />
+        ) : (
+          <button
+            onClick={() => setShowAuthModal(true)}
+            className="px-6 py-2 bg-gradient-to-r from-cosmic-pink to-cosmic-red rounded-full font-montserrat font-medium text-cosmic-white hover:shadow-lg hover:shadow-cosmic-pink/30 transition-all duration-300"
+          >
+            Sign In
+          </button>
+        )}
+      </div>
+
       <HeroSection />
       <TrackGrid tracks={mockTracks} onTrackSelect={setSelectedTrack} />
+      
       {selectedTrack && (
         <TrackModal 
           track={selectedTrack} 
           onClose={() => setSelectedTrack(null)} 
         />
       )}
+
+      <AuthModal 
+        isOpen={showAuthModal} 
+        onClose={() => setShowAuthModal(false)} 
+      />
     </div>
   );
 };

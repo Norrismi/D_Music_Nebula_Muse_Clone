@@ -1,15 +1,14 @@
 
 import { createClient } from "@supabase/supabase-js";
+import type { Database } from "@/integrations/supabase/types";
 
-// These environment variables should be automatically provided by Lovable's Supabase integration
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY || '';
+const SUPABASE_URL = "https://gqcberkzlgarlueszzgb.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdxY2Jlcmt6bGdhcmx1ZXN6emdiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyNzU1NTUsImV4cCI6MjA2NTg1MTU1NX0.lwDqazhNDwiOATde-tv5UMoGrslRwv5O-BaZtk5FJdk";
 
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('Supabase environment variables are missing. Make sure your Supabase integration is properly configured.');
-}
-
-// Create a fallback client that won't crash the app
-export const supabase = supabaseUrl && supabaseAnonKey 
-  ? createClient(supabaseUrl, supabaseAnonKey)
-  : null;
+export const supabase = createClient<Database>(SUPABASE_URL, SUPABASE_ANON_KEY, {
+  auth: {
+    storage: localStorage,
+    persistSession: true,
+    autoRefreshToken: true,
+  }
+});
