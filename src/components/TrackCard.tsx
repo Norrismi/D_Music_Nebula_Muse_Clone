@@ -1,12 +1,6 @@
-
 import { Track } from "@/pages/Index";
 import { Circle } from "lucide-react";
-import { createClient } from "@supabase/supabase-js";
-
-const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY
-);
+import { supabase } from "@/lib/supabase";
 
 interface TrackCardProps {
   track: Track;
