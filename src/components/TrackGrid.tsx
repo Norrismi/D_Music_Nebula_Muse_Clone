@@ -15,7 +15,7 @@ const TrackGrid = ({ tracks, onTrackSelect }: TrackGridProps) => {
           Her Musical Universe
         </h2>
         <p className="font-montserrat text-cosmic-white/70 text-lg max-w-2xl mx-auto">
-          Twelve celestial tracks waiting to transport you to another dimension
+           Celestial tracks waiting to transport you to another dimension
         </p>
       </div>
 

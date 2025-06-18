@@ -1,4 +1,3 @@
-
 const HeroSection = () => {
   return (
     <div className="relative h-screen w-full overflow-hidden">
@@ -11,7 +10,10 @@ const HeroSection = () => {
           playsInline
           className="w-full h-full object-cover"
         >
-          <source src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1a9a1c8e5&profile_id=139&oauth2_token_id=57447761" type="video/mp4" />
+          <source
+            src="https://player.vimeo.com/external/434045526.sd.mp4?s=c27eecc69a27dbc4ff2b87d38afc35f1a9a1c8e5&profile_id=139&oauth2_token_id=57447761"
+            type="video/mp4"
+          />
         </video>
       </div>
 
@@ -26,7 +28,7 @@ const HeroSection = () => {
         <p className="font-montserrat text-lg md:text-xl text-cosmic-white/80 mb-8 max-w-md">
           Journey through ethereal soundscapes and discover music that transcends dimensions
         </p>
-        <button 
+        <button
           onClick={() => {
             const trackSection = document.getElementById('tracks');
             trackSection?.scrollIntoView({ behavior: 'smooth' });
@@ -38,10 +40,18 @@ const HeroSection = () => {
         </button>
       </div>
 
-      {/* Floating ink splash elements */}
-      <div className="absolute top-20 right-20 w-32 h-32 bg-ink-splash animate-ink-float opacity-50"></div>
-      <div className="absolute bottom-40 right-40 w-24 h-24 bg-ink-splash animate-ink-float opacity-30" style={{ animationDelay: '1s' }}></div>
-      <div className="absolute top-1/2 left-10 w-20 h-20 bg-ink-splash animate-ink-float opacity-40" style={{ animationDelay: '2s' }}></div>
+      {/* Enhanced Floating Ink Splash Elements */}
+      <div className="absolute top-20 right-20 w-32 h-32 bg-ink-splash animate-ink-float opacity-80"></div>
+      <div className="absolute bottom-40 right-40 w-24 h-24 bg-ink-splash animate-ink-float opacity-70" style={{ animationDelay: '1s' }}></div>
+      <div className="absolute top-1/2 left-10 w-20 h-20 bg-ink-splash animate-ink-float opacity-70" style={{ animationDelay: '2s' }}></div>
+      <div className="absolute top-10 left-20 w-28 h-28 bg-ink-splash animate-ink-float opacity-75" style={{ animationDelay: '0.5s' }}></div>
+      <div className="absolute bottom-20 left-40 w-16 h-16 bg-ink-splash animate-ink-float opacity-85" style={{ animationDelay: '1.5s' }}></div>
+ 
+      {/* New Middle Elements */}
+      <div className="absolute top-1/2 left-1/2 w-30 h-30 bg-ink-splash animate-ink-float opacity-70 transform -translate-x-1/2 -translate-y-1/2" style={{ animationDelay: '0.7s' }}></div>
+      <div className="absolute top-1/3 left-1/2 w-20 h-20 bg-ink-splash animate-ink-float opacity-65 transform -translate-x-1/2" style={{ animationDelay: '1.2s' }}></div>
+      <div className="absolute top-2/3 left-1/2 w-25 h-25 bg-ink-splash animate-ink-float opacity-60 transform -translate-x-1/2" style={{ animationDelay: '1.7s' }}></div>
+      <div className="absolute top-1/2 right-1/2 w-22 h-22 bg-ink-splash animate-ink-float opacity-55 transform translate-x-1/2 -translate-y-1/2" style={{ animationDelay: '2.2s' }}></div>
     </div>
   );
 };
