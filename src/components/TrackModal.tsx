@@ -43,6 +43,11 @@ const TrackModal = ({ track, onClose }: TrackModalProps) => {
   };
 
   const handleBuyNow = async () => {
+    if (!supabase) {
+      alert('Payment system is not configured. Please set up Supabase integration.');
+      return;
+    }
+
     try {
       const { data, error } = await supabase.functions.invoke('create-payment', {
         body: {
