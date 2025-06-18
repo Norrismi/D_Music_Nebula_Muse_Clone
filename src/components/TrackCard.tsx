@@ -1,3 +1,4 @@
+
 import { Track } from "@/pages/Index";
 import { Circle } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
