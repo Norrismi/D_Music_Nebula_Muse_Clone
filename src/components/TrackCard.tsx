@@ -1,6 +1,12 @@
 
 import { Track } from "@/pages/Index";
 import { Circle } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 interface TrackCardProps {
   track: Track;
@@ -8,10 +14,30 @@ interface TrackCardProps {
 }
 
 const TrackCard = ({ track, onPlay }: TrackCardProps) => {
-  const handleBuyNow = (e: React.MouseEvent) => {
+  const handleBuyNow = async (e: React.MouseEvent) => {
     e.stopPropagation();
-    // This will be connected to Stripe later
-    console.log(`Buying track: ${track.title}`);
+    
+    try {
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: {
+          trackId: track.id,
+          trackTitle: track.title
+        }
+      });
+
+      if (error) {
+        console.error('Payment error:', error);
+        alert('Payment failed. Please try again.');
+        return;
+      }
+
+      if (data?.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Payment failed. Please try again.');
+    }
   };
 
   return (
@@ -53,7 +79,7 @@ const TrackCard = ({ track, onPlay }: TrackCardProps) => {
             className="flex-1 bg-cosmic-rose-gold text-cosmic-white py-2 px-4 rounded-full font-montserrat text-sm font-medium hover:bg-cosmic-rose-gold/80 transition-colors duration-300"
             onClick={handleBuyNow}
           >
-            ${track.price}
+            $1
           </button>
         </div>
       </div>

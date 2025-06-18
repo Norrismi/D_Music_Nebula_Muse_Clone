@@ -2,6 +2,12 @@
 import { useState, useRef, useEffect } from "react";
 import { Track } from "@/pages/Index";
 import { Circle, CircleX } from "lucide-react";
+import { createClient } from "@supabase/supabase-js";
+
+const supabase = createClient(
+  import.meta.env.VITE_SUPABASE_URL,
+  import.meta.env.VITE_SUPABASE_ANON_KEY
+);
 
 interface TrackModalProps {
   track: Track;
@@ -42,9 +48,28 @@ const TrackModal = ({ track, onClose }: TrackModalProps) => {
     setIsPlaying(!isPlaying);
   };
 
-  const handleBuyNow = () => {
-    // This will be connected to Stripe later
-    console.log(`Buying track: ${track.title}`);
+  const handleBuyNow = async () => {
+    try {
+      const { data, error } = await supabase.functions.invoke('create-payment', {
+        body: {
+          trackId: track.id,
+          trackTitle: track.title
+        }
+      });
+
+      if (error) {
+        console.error('Payment error:', error);
+        alert('Payment failed. Please try again.');
+        return;
+      }
+
+      if (data?.url) {
+        window.location.href = data.url;
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      alert('Payment failed. Please try again.');
+    }
   };
 
   const formatTime = (time: number) => {
@@ -124,7 +149,7 @@ const TrackModal = ({ track, onClose }: TrackModalProps) => {
           onClick={handleBuyNow}
           className="w-full bg-cosmic-rose-gold text-cosmic-white py-3 rounded-full font-montserrat font-medium hover:bg-cosmic-rose-gold/80 transition-colors duration-300"
         >
-          Buy Now - ${track.price}
+          Buy Now - $1
         </button>
 
         {/* Exit message */}
